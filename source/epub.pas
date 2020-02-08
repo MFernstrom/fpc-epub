@@ -1,13 +1,13 @@
 {
   Author    Marcus Fernström
-  Version   0.1
+  Version   0.2
   License   Apache 2.0
   GitHub    https://github.com/MFernstrom/fpc-epub
 }
 
 unit epub;
 
-{$mode objfpc}{$H+}{$J-}
+{$mode objfpc}{$H+}{$J-}{$M+}
 
 interface
 
@@ -16,9 +16,9 @@ uses
 
 type
 
-  { TMetaDataClass }
+  { TEpubMetaData }
 
-  TMetaDataClass = class(TComponent)
+  TEpubMetaData = class(TComponent)
     private
       Fidentifier: String;
       Ftitle: String;
@@ -39,40 +39,41 @@ type
       property subject: String read Fsubject write Fsubject;
   end;
 
-  { TEpubClass }
+  { TEpubHandler }
 
-  TEpubClass = class(TComponent)
+  TEpubHandler = class(TObject)
     private
       FFilePath: String;
       FUnpackedFilePath: String;
       FRootFile: String;
-      FMetaData: TMetaDataClass;
+      FMetaData: TEpubMetaData;
       FcoverImage: String;
       FDoc: TXMLDocument;
       RootFileNode: TDOMNode;
-      procedure unpackEpub(path:String);
+      procedure unpackEpub(const path:String);
       procedure setMetaData;
       procedure clearData;
       function setRootFile:Boolean;
     public
-      property MetaData:TMetaDataClass read FMetaData write FMetaData;
-      procedure load(path:String);
+      property MetaData:TEpubMetaData read FMetaData write FMetaData;
+      procedure loadFromFile(const path:String);
       property coverImage: String read FcoverImage write FcoverImage;
-      constructor Create(AOwner: TComponent); override;
+      constructor Create(AOwner: TComponent);
       destructor Destroy; override;
   end;
 
 implementation
 
-{ TEpubClass }
+{ TEpubHandler }
 
-procedure TEpubClass.unpackEpub(path: String);
+procedure TEpubHandler.unpackEpub(const path: String);
 var
   UnZipper: TUnZipper;
 begin
+  FFilePath := path;
+  UnZipper := TUnZipper.Create;
+
   try
-    FFilePath := path;
-    UnZipper := TUnZipper.Create;
     UnZipper.FileName := FFilePath;
     UnZipper.OutputPath := FUnpackedFilePath;
     UnZipper.Examine;
@@ -83,7 +84,7 @@ begin
 end;
 
 
-procedure TEpubClass.setMetaData;
+procedure TEpubHandler.setMetaData;
 var
   Child: TDOMNode;
 begin
@@ -120,7 +121,7 @@ begin
 end;
 
 
-procedure TEpubClass.clearData;
+procedure TEpubHandler.clearData;
 begin
   FFilePath := '';
   FRootFile := '';
@@ -136,10 +137,12 @@ begin
 end;
 
 
-function TEpubClass.setRootFile:Boolean;
+function TEpubHandler.setRootFile:Boolean;
 begin
+  Result := false;
+
   try
-    ReadXMLFile(FDoc, FUnpackedFilePath + '/META-INF/container.xml');
+    ReadXMLFile(FDoc, FUnpackedFilePath + DirectorySeparator + 'META-INF' + DirectorySeparator + 'container.xml');
     RootFileNode := FDoc.DocumentElement.FirstChild;
     RootFileNode := RootFileNode.FirstChild;
 
@@ -147,15 +150,12 @@ begin
       FRootFile := RootFileNode.Attributes.Item[0].NodeValue;
 
     Result := true;
-
   except
-    on E:Exception do
-      Result := false;
   end;
 end;
 
 
-procedure TEpubClass.load(path: String);
+procedure TEpubHandler.loadFromFile(const path: String);
 begin
   clearData;
   unpackEpub(path);
@@ -163,14 +163,13 @@ begin
   setMetaData;
 end;
 
-constructor TEpubClass.Create(AOwner: TComponent);
+constructor TEpubHandler.Create(AOwner: TComponent);
 begin
-  inherited;
   FUnpackedFilePath := GetTempDir(true) + 'fpepub';
-  MetaData := TMetaDataClass.Create(nil);
+  MetaData := TEpubMetaData.Create(nil);
 end;
 
-destructor TEpubClass.Destroy;
+destructor TEpubHandler.Destroy;
 begin
   FreeAndNil(FMetaData);
   inherited Destroy;

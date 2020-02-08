@@ -24,7 +24,7 @@ type
     PublisherEdit: TLabeledEdit;
     RightsEdit: TLabeledEdit;
     SubjectEdit: TLabeledEdit;
-    epub: TEpubClass;
+    epub: TEpubHandler;
     procedure LoadEpubButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure UpdateFormData;
@@ -45,7 +45,7 @@ implementation
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  epub := TEpubClass.Create(nil);
+  epub := TEpubHandler.Create(nil);
 end;
 
 procedure TForm1.UpdateFormData;
@@ -64,7 +64,7 @@ end;
 procedure TForm1.LoadEpubButtonClick(Sender: TObject);
 begin
   if epubDialog.Execute then begin
-    epub.load(epubDialog.FileName);
+    epub.loadFromFile(epubDialog.FileName);
     UpdateFormData;
   end;
 end;
