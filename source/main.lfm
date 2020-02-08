@@ -1,0 +1,127 @@
+object Form1: TForm1
+  Left = 436
+  Height = 481
+  Top = 121
+  Width = 790
+  Caption = 'ePub inspector'
+  ClientHeight = 481
+  ClientWidth = 790
+  OnCreate = FormCreate
+  LCLVersion = '2.0.6.0'
+  object CoverImage: TImage
+    Left = 24
+    Height = 377
+    Top = 32
+    Width = 264
+    Proportional = True
+  end
+  object IdentifierEdit: TLabeledEdit
+    Left = 328
+    Height = 23
+    Top = 74
+    Width = 392
+    EditLabel.Height = 15
+    EditLabel.Width = 392
+    EditLabel.Caption = 'Identifier'
+    EditLabel.ParentColor = False
+    TabOrder = 0
+    Text = 'IdentifierEdit'
+  end
+  object TitleEdit: TLabeledEdit
+    Left = 328
+    Height = 23
+    Top = 122
+    Width = 392
+    EditLabel.Height = 15
+    EditLabel.Width = 392
+    EditLabel.Caption = 'Title'
+    EditLabel.ParentColor = False
+    TabOrder = 1
+    Text = 'TitleEdit'
+  end
+  object LanguageEdit: TLabeledEdit
+    Left = 328
+    Height = 23
+    Top = 170
+    Width = 392
+    EditLabel.Height = 15
+    EditLabel.Width = 392
+    EditLabel.Caption = 'Language'
+    EditLabel.ParentColor = False
+    TabOrder = 2
+    Text = 'LanguageEdit'
+  end
+  object CreatorEdit: TLabeledEdit
+    Left = 328
+    Height = 23
+    Top = 218
+    Width = 392
+    EditLabel.Height = 15
+    EditLabel.Width = 392
+    EditLabel.Caption = 'Creator'
+    EditLabel.ParentColor = False
+    TabOrder = 3
+    Text = 'CreatorEdit'
+  end
+  object DateEdit: TLabeledEdit
+    Left = 328
+    Height = 23
+    Top = 266
+    Width = 392
+    EditLabel.Height = 15
+    EditLabel.Width = 392
+    EditLabel.Caption = 'Date'
+    EditLabel.ParentColor = False
+    TabOrder = 4
+    Text = 'DateEdit'
+  end
+  object PublisherEdit: TLabeledEdit
+    Left = 328
+    Height = 23
+    Top = 314
+    Width = 392
+    EditLabel.Height = 15
+    EditLabel.Width = 392
+    EditLabel.Caption = 'Publisher'
+    EditLabel.ParentColor = False
+    TabOrder = 5
+    Text = 'PublisherEdit'
+  end
+  object RightsEdit: TLabeledEdit
+    Left = 328
+    Height = 23
+    Top = 362
+    Width = 392
+    EditLabel.Height = 15
+    EditLabel.Width = 392
+    EditLabel.Caption = 'Rights'
+    EditLabel.ParentColor = False
+    TabOrder = 6
+    Text = 'RightsEdit'
+  end
+  object SubjectEdit: TLabeledEdit
+    Left = 328
+    Height = 23
+    Top = 410
+    Width = 392
+    EditLabel.Height = 15
+    EditLabel.Width = 392
+    EditLabel.Caption = 'Subject'
+    EditLabel.ParentColor = False
+    TabOrder = 7
+    Text = 'SubjectEdit'
+  end
+  object LoadEpubButton: TButton
+    Left = 328
+    Height = 25
+    Top = 16
+    Width = 75
+    Caption = 'Load ePub'
+    OnClick = LoadEpubButtonClick
+    TabOrder = 8
+  end
+  object epubDialog: TOpenDialog
+    left = 472
+    top = 16
+  end
+end
