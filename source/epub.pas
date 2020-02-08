@@ -12,7 +12,7 @@ unit epub;
 interface
 
 uses
-  Classes, SysUtils, Zipper, StdCtrls, laz2_DOM, laz2_XMLRead;
+  Classes, SysUtils, Zipper, laz2_DOM, laz2_XMLRead;
 
 type
 
@@ -58,7 +58,7 @@ type
       property MetaData:TEpubMetaData read FMetaData write FMetaData;
       procedure loadFromFile(const path:String);
       property coverImage: String read FcoverImage write FcoverImage;
-      constructor Create(AOwner: TComponent);
+      constructor Create;
       destructor Destroy; override;
   end;
 
@@ -163,7 +163,7 @@ begin
   setMetaData;
 end;
 
-constructor TEpubHandler.Create(AOwner: TComponent);
+constructor TEpubHandler.Create;
 begin
   FUnpackedFilePath := GetTempDir(true) + 'fpepub';
   MetaData := TEpubMetaData.Create(nil);

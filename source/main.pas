@@ -45,7 +45,7 @@ implementation
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  epub := TEpubHandler.Create(nil);
+  epub := TEpubHandler.Create;
 end;
 
 procedure TForm1.UpdateFormData;
