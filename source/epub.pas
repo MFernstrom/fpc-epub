@@ -18,7 +18,7 @@ type
 
   { TEpubMetaData }
 
-  TEpubMetaData = class(TComponent)
+  TEpubMetaData = class(TObject)
     private
       Fidentifier: String;
       Ftitle: String;
@@ -166,7 +166,7 @@ end;
 constructor TEpubHandler.Create;
 begin
   FUnpackedFilePath := GetTempDir(true) + 'fpepub';
-  MetaData := TEpubMetaData.Create(nil);
+  MetaData := TEpubMetaData.Create;
 end;
 
 destructor TEpubHandler.Destroy;
