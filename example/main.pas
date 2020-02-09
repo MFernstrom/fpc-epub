@@ -58,13 +58,13 @@ begin
   PublisherEdit.Text := epub.MetaData.publisher;
   RightsEdit.Text := epub.MetaData.rights;
   SubjectEdit.Text := epub.MetaData.subject;
-  CoverImage.Picture.LoadFromFile(epub.coverImage);
+  CoverImage.Picture.LoadFromFile(epub.CoverImage);
 end;
 
 procedure TForm1.LoadEpubButtonClick(Sender: TObject);
 begin
   if epubDialog.Execute then begin
-    epub.loadFromFile(epubDialog.FileName);
+    epub.LoadFromFile(epubDialog.FileName);
     UpdateFormData;
   end;
 end;

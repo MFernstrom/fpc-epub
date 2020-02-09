@@ -1,6 +1,6 @@
 {
   Author    Marcus Fernström
-  Version   0.2
+  Version   0.2.1
   License   Apache 2.0
   GitHub    https://github.com/MFernstrom/fpc-epub
 }
@@ -47,17 +47,17 @@ type
       FUnpackedFilePath: String;
       FRootFile: String;
       FMetaData: TEpubMetaData;
-      FcoverImage: String;
+      FCoverImage: String;
       FDoc: TXMLDocument;
       RootFileNode: TDOMNode;
-      procedure unpackEpub(const path:String);
-      procedure setMetaData;
-      procedure clearData;
-      function setRootFile:Boolean;
+      procedure UnpackEpub(const path:String);
+      procedure SetMetaData;
+      procedure ClearData;
+      function SetRootFile:Boolean;
     public
       property MetaData:TEpubMetaData read FMetaData write FMetaData;
-      procedure loadFromFile(const path:String);
-      property coverImage: String read FcoverImage write FcoverImage;
+      procedure LoadFromFile(const path:String);
+      property CoverImage: String read FCoverImage write FCoverImage;
       constructor Create;
       destructor Destroy; override;
   end;
@@ -66,7 +66,7 @@ implementation
 
 { TEpubHandler }
 
-procedure TEpubHandler.unpackEpub(const path: String);
+procedure TEpubHandler.UnpackEpub(const path: String);
 var
   UnZipper: TUnZipper;
 begin
@@ -84,7 +84,7 @@ begin
 end;
 
 
-procedure TEpubHandler.setMetaData;
+procedure TEpubHandler.SetMetaData;
 var
   Child: TDOMNode;
 begin
@@ -114,18 +114,18 @@ begin
 
   while Assigned(child) do begin
     if Child.Attributes.GetNamedItem('id').NodeValue = 'cover-image' then
-      coverImage := FUnpackedFilePath + DirectorySeparator + 'OEBPS' + DirectorySeparator + Child.Attributes.GetNamedItem('href').NodeValue;
+      CoverImage := FUnpackedFilePath + DirectorySeparator + 'OEBPS' + DirectorySeparator + Child.Attributes.GetNamedItem('href').NodeValue;
 
     Child := Child.NextSibling;
   end;
 end;
 
 
-procedure TEpubHandler.clearData;
+procedure TEpubHandler.ClearData;
 begin
   FFilePath := '';
   FRootFile := '';
-  FcoverImage := '';
+  FCoverImage := '';
   MetaData.identifier := '';
   MetaData.title := '';
   MetaData.language := '';
@@ -137,7 +137,7 @@ begin
 end;
 
 
-function TEpubHandler.setRootFile:Boolean;
+function TEpubHandler.SetRootFile:Boolean;
 begin
   Result := false;
 
@@ -155,12 +155,12 @@ begin
 end;
 
 
-procedure TEpubHandler.loadFromFile(const path: String);
+procedure TEpubHandler.LoadFromFile(const path: String);
 begin
-  clearData;
-  unpackEpub(path);
-  setRootFile;
-  setMetaData;
+  ClearData;
+  UnpackEpub(path);
+  SetRootFile;
+  SetMetaData;
 end;
 
 constructor TEpubHandler.Create;

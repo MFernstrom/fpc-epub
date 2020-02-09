@@ -20,7 +20,7 @@
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
-      <DestinationDirectory Value="C:\Users\Marcus\Documents\Coding\repos\fpc-epub\source"/>
+      <DestinationDirectory Value="C:\Users\Marcus\Documents\Coding\repos\fpc-epub\example"/>
       <CompressFinally Value="False"/>
       <UseFileFilters Value="True"/>
     </PublishOptions>
