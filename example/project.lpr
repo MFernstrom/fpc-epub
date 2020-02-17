@@ -7,13 +7,13 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, main, epub
-  { you can add units after this };
+  Forms, main;
 
 {$R *.res}
 
 begin
   RequireDerivedFormResource := True;
+  Application.Title := 'ePub inspector';
   Application.Scaled := True;
   Application.Initialize;
   Application.CreateForm(TForm1, Form1);
