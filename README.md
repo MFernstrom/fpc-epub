@@ -2,10 +2,11 @@
 FreePascal/Lazarus unit for pulling metadata out of ePub files
 
 ## Use
-1. Add `epub` to your uses clause
-2. Initialize `epub := TEpubHandler.Create;`
-3. Load an ePub file ` epub.LoadFromFile('path/to/file');`
-4. Extract data `epub.MetaData.title`
+1. Add `epub_pk` package to your project
+2. Add `epub` to your `uses` clause
+3. Initialize `epub := TEpubHandler.Create;`
+4. Load an ePub file ` epub.LoadFromFile('path/to/file');`
+5. Extract some data `epub.MetaData.title`
 
 ## Available Metadata
 * identifier
